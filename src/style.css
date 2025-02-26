@@ -1,0 +1,42 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.blue{
+  color: #1F8394;
+}
+.gray{
+  color: #787878;
+}
+.yellow{
+  color: #FFD814;
+}
+.orange-btn{
+  background-color: #FFA41C;
+}
+.yellow-btn{
+  background-color: #FFD814;
+}
+.yellow-btn,
+.orange-btn{
+  padding: 10px 30px;
+  border-radius: 2rem;
+  cursor: pointer;
+  transition: .3s ease;
+}
+.yellow-btn:hover,
+.orange-btn:hover {
+  filter: brightness(85%);
+}
+
+@media (max-width: 639px) {
+  .form-container {
+    width: 75%;
+  }
+}
+@media (max-width: 450px) {
+  .form-container {
+    width: 95%;
+  }
+}
