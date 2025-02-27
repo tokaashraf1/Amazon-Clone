@@ -20,7 +20,7 @@ const Payment = ({ data }) => {
   }
 
   return (
-    <div className="border-[1px] rounded p-5 h-[fit-content]  flex flex-col gap-3">
+    <div className="border-[1px] border-stone-400 rounded p-5 h-[fit-content]  flex flex-col gap-3">
       <h1 className="text-2xl">
         <sup>SAR</sup>
         {data.price}
@@ -37,7 +37,7 @@ const Payment = ({ data }) => {
       <p className="font-bold text-[#B12704]">
         Usually ships within 4 to 5 days
       </p>
-      <div className="flex gap-7 border-[1px] p-3 ">
+      <div className="flex gap-7 border-[1px] border-stone-400 p-3 ">
         <p>Quantity:</p>
         <p className="select-none text-xl">
           <span onClick={() => (quantity > 1 ? setQuantity(quantity - 1) : "")}>
@@ -55,7 +55,9 @@ const Payment = ({ data }) => {
       {showMessage && (
         <div className="md:w-[25%] absolute bottom-[-5%] right-[10px] z-[50] border-2 border-green-500 flex bg-white p-2 items-center">
           <img src={succes} width={"10%"} alt="" />
-          <p className="text-green-600 ml-3">Product added to cart successfully</p>
+          <p className="text-green-600 ml-3">
+            Product added to cart successfully
+          </p>
         </div>
       )}
       <button className="orange-btn">Buy Now</button>

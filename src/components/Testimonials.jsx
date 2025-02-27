@@ -18,7 +18,7 @@ const Testimonials = ({ rating }) => {
               className="flex items-center gap-3 justify-start my-3"
             >
               <p className="blue">{r.stars}</p>
-              <div className="border-[1px] h-[30px] w-[50%]">
+              <div className="border-[1px] border-stone-400 h-[30px] w-[50%]">
                 <span
                   className={` bg-[#DE7921] h-[100%] block`}
                   style={{
@@ -33,7 +33,7 @@ const Testimonials = ({ rating }) => {
       </div>
       <div className="md:w-[50%]">
         {testimonials.map((t, key) => (
-          <div key={key} className="mb-5 max-md:my-5">
+          <div key={key} className="mb-7 max-md:my-7">
             <div className="flex items-center justify-start gap-3 mb-2">
               <img src={t.img} width={"8%"} alt="" />
               <p>{t.name}</p>
@@ -43,10 +43,8 @@ const Testimonials = ({ rating }) => {
               <p className="text-xl font-bold">{t.title}</p>
             </div>
             <p>{t.deatils}</p>
-            <p className="font-bold text-[#DE7921]">
-              Verified Purchase
-            </p>
-            <p className="font-light text-xl my-2">{t.comment}</p>
+            <p className="font-bold text-[#DE7921]">Verified Purchase</p>
+            <p className="font-light my-2">{t.comment}</p>
             <p className="gray">Report</p>
           </div>
         ))}

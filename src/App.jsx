@@ -5,6 +5,8 @@ import ProductsPage from "./pages/ProductsPage";
 import ProductDetails from "./pages/ProductDetails"; // Import ProductDetails
 import { AuthProvider } from "./contexts/AuthContext";
 import { ProductProvider } from "./contexts/ProductsContext";
+import Layout from "./components/Layout";
+import Home from "./pages/Home";
 
 function App() {
   return (
@@ -12,10 +14,13 @@ function App() {
       <ProductProvider>
         <Router>
           <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Home />} />
+            </Route>
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/products" element={<ProductsPage />} />
-            <Route path="/products/:id" element={<ProductDetails />} /> 
+            <Route path="/products/:id" element={<ProductDetails />} />
           </Routes>
         </Router>
       </ProductProvider>

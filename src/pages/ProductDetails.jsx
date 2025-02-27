@@ -61,7 +61,7 @@ const ProductPage = () => {
             </div>
           </div>
           <hr className="border-[#787878]" />
-          <div className="my-3">
+          <div className="my-3 flex flex-col gap-3">
             <h1 className="text-2xl">
               <sup>SAR</sup>
               {product.price}
