@@ -3,7 +3,7 @@ import StarsRate from "./StarsRate";
 
 const Testimonials = ({ rating }) => {
   return (
-    <section className="m-5 flex max-sm:flex-col">
+    <section className="m-5 flex max-md:flex-col">
       <div className="md:w-[30%]">
         <h1 className="text-xl font-bold">Customer Reviews</h1>
         <div className="flex items-center mt-2 gap-1">
@@ -33,7 +33,7 @@ const Testimonials = ({ rating }) => {
       </div>
       <div className="md:w-[50%]">
         {testimonials.map((t, key) => (
-          <div key={key} className="mb-5 max-sm:my-5">
+          <div key={key} className="mb-5 max-md:my-5">
             <div className="flex items-center justify-start gap-3 mb-2">
               <img src={t.img} width={"8%"} alt="" />
               <p>{t.name}</p>

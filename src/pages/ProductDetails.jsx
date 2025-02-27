@@ -10,7 +10,7 @@ import "../style.css";
 const ProductPage = () => {
   const id = useParams();
   const [product, setProduct] = useState([]);
-  const [activeIndex, setActiveIndex] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     axios
@@ -25,7 +25,7 @@ const ProductPage = () => {
         {product.category}
         <i className="fa-solid fa-chevron-right ml-2"></i>
       </p>
-      <div className="m-5 flex max-sm:flex-col relative">
+      <div className="m-5 flex max-md:flex-col relative">
         <div className="flex gap-[15%] md:max-w-[30%] justify-between">
           <div className="max-w-[15%]">
             {[0, 1].map((index) => (
@@ -44,7 +44,7 @@ const ProductPage = () => {
             <img src={product.image} alt="" />
           </div>
         </div>
-        <div className="md:max-w-[40%] mx-[5%] max-sm:my-3">
+        <div className="md:max-w-[40%] mx-[5%] max-md:my-3">
           <div>
             <p className="blue">Brand: {product.title}</p>
             <p className="text-[#5C5C5C] text-xl">{product.description}</p>
