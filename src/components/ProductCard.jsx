@@ -87,7 +87,10 @@ function ProductCard({ product }) {
           Add to cart
         </button>
         <button
-          onClick={handleWishlistClick}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleWishlistClick();
+          }}
           className="w-full px-4 py-2 mt-3 text-sm font-medium text-white bg-green-500 rounded-lg hover:bg-cyan-800 focus:outline-none focus:ring-2 focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700"
         >
           Add to Wishlist
