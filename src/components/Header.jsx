@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faSearch, faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 import amazonlogo from "../assets/amazon2.png";
@@ -8,12 +8,21 @@ import "./CSS/Header.css";
 const Header = () => {
   const [user, setUser] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const navegate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem('users');
+    setUser(null);
+    navegate('/login');
+  };
 
-  const handleLogin = () => setUser({ name: "Yasmine" });
-  const handleLogout = () => setUser(null);
+  useEffect(()=>{
+  localStorage.getItem('users');
+  setUser(JSON.parse(localStorage.getItem('users')));
+
+},[])
 
   return (
-    <header className="flex items-center justify-between p-4 bg-gray-900 text-white shadow-md fixed top-0 left-0 w-full z-40">
+    <header className="flex items-center justify-between p-4 bg-gray-900 text-white shadow-md sticky top-0 left-0 w-full z-40">
       {/* Logo */}
       <Link to="/" className="text-2xl font-bold flex-shrink-0">
         <img src={amazonlogo} alt="Amazon" className="h-10 mt-3" />
@@ -32,7 +41,10 @@ const Header = () => {
         {/* Location */}
         <div className="hidden lg:flex items-center text-sm">
           <i className="fa-solid fa-location-dot mr-1"></i>
-          <span>Delivering to Surat 394210 - <span className=" cursor-pointer">Update location</span></span>
+          <span>
+            Delivering to Surat 394210 -{" "}
+            <span className=" cursor-pointer">Update location</span>
+          </span>
         </div>
 
         {/* Search Bar */}
@@ -52,9 +64,13 @@ const Header = () => {
       <div className="hidden md:flex items-center space-x-4">
         {user ? (
           <>
-            <span className="text-sm">Welcome, {user.name}!</span>
+            <span className="text-sm">Welcome, {user[0].name}!</span>
             <Link to="/cart" className="flex items-center text-white px-4 py-2">
-              <FontAwesomeIcon icon={faShoppingCart} className="mr-1" size="lg" />
+              <FontAwesomeIcon
+                icon={faShoppingCart}
+                className="mr-1"
+                size="lg"
+              />
               Cart
             </Link>
             <button
@@ -66,13 +82,16 @@ const Header = () => {
           </>
         ) : (
           <>
-            <button
-              onClick={handleLogin}
+            <Link
+              to="/login"
               className="bg-transparent px-4 py-2 rounded-md hover:bg-blue-600"
             >
               Login
-            </button>
-            <Link to="/register" className="bg-transparent px-4 py-2 rounded-md hover:bg-blue-600 text-white hover:text-white">
+            </Link>
+            <Link
+              to="/register"
+              className="bg-transparent px-4 py-2 rounded-md hover:bg-blue-600 text-white hover:text-white"
+            >
               Register
             </Link>
           </>
@@ -85,8 +104,15 @@ const Header = () => {
           {user ? (
             <>
               <span className="text-sm">Welcome, {user.name}!</span>
-              <Link to="/cart" className="flex items-center text-white px-4 py-2">
-                <FontAwesomeIcon icon={faShoppingCart} className="mr-1" size="lg" />
+              <Link
+                to="/cart"
+                className="flex items-center text-white px-4 py-2"
+              >
+                <FontAwesomeIcon
+                  icon={faShoppingCart}
+                  className="mr-1"
+                  size="lg"
+                />
                 Cart
               </Link>
               <button
@@ -104,7 +130,10 @@ const Header = () => {
               >
                 Login
               </button>
-              <Link to="/register" className="bg-transparent px-4 py-2 rounded-md hover:bg-blue-600 w-full text-white hover:text-white text-center">
+              <Link
+                to="/register"
+                className="bg-transparent px-4 py-2 rounded-md hover:bg-blue-600 w-full text-white hover:text-white text-center"
+              >
                 Register
               </Link>
             </>

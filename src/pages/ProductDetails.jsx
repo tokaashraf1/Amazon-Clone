@@ -6,6 +6,8 @@ import Payment from "../components/Payment";
 import Testimonials from "../components/Testimonials";
 import StarsRate from "../components/StarsRate";
 import "../style.css";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 const ProductPage = () => {
   const id = useParams();
@@ -21,6 +23,7 @@ const ProductPage = () => {
   console.log(product);
   return (
     <section>
+      <Header/>
       <p className="ml-5 text-[#787878]">
         {product.category}
         <i className="fa-solid fa-chevron-right ml-2"></i>
@@ -109,6 +112,7 @@ const ProductPage = () => {
       </div>
       <hr className="border-[#787878]" />
       <Testimonials rating={product.rating?.rate} />
+      <Footer/>
     </section>
   );
 };

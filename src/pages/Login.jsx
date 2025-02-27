@@ -5,6 +5,7 @@ import loginArrow from "../assets/loginArrow.png";
 import { useNavigate } from "react-router-dom";
 import "../style.css";
 import { useContext, useState } from "react";
+import Header from "../components/Header";
 
 function Login() {
   const { login } = useContext(AuthContext);
@@ -32,6 +33,7 @@ function Login() {
       setMessage({ success: result.message });
       setFormData({ email: "", password: "" });
       setErrors({}); // Clear errors on success
+      navigate("/");
     } else {
       if (result.message === "Incorrect password.") {
         setErrors({ password: result.message }); // Show error under password field
@@ -42,6 +44,8 @@ function Login() {
   };
 
   return (
+    <>
+    <Header/>
     <div className="flex items-center flex-col mt-[8%] sm:mt-[3%]">
       <div>
         <img src={logo} alt="logo" className="max-w-full" />
@@ -135,6 +139,7 @@ function Login() {
         © 1996-2024, Amazon.com, Inc. or its affiliates
       </p>
     </div>
+    </>
   );
 }
 

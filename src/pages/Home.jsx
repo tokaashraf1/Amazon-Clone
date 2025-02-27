@@ -28,7 +28,7 @@ export default function Home() {
   }, []);
 
   return <>
-  <div className="w-screen mt-28">
+  <div className="mt-28">
     <Hero products={products} />  
   </div>
 
@@ -36,7 +36,7 @@ export default function Home() {
 
     <ProductsGrid products={products} />
 
-    <div className="w-screen mb-0">
+    <div className="mb-0">
       <Slider1 products={products}/>
     </div>
 
@@ -44,7 +44,7 @@ export default function Home() {
       <ProductsGrid2 products={products}/>
     </div>
 
-    <div className="w-screen mb-0">
+    <div className="mb-0">
       <Slider2 products={products}/>
     </div>
 

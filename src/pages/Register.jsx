@@ -2,11 +2,12 @@ import logo from "../assets/logo.png";
 import arrow from "../assets/arrow.png";
 import { AuthContext } from "../contexts/AuthContext";
 import { validateRegistration } from "../utils/validation";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../style.css";
 import { useContext, useState } from "react";
 function Register() {
   const { authState, register } = useContext(AuthContext);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -38,6 +39,7 @@ function Register() {
     if (result.success) {
       setMessage({ success: result.message });
       setFormData({ name: "", email: "", password: "" });
+      navigate("/");
     } else {
       setErrors({ email: result.message });
     }
