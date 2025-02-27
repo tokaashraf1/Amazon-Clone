@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 const API_URL = "https://fakestoreapi.com";
 
 // Create Context
-export const ProductContext = createContext();
+export const ProductsContext = createContext();
 
 // Provider Component
 export function ProductProvider({ children }) {
@@ -28,9 +28,9 @@ export function ProductProvider({ children }) {
   }, []);
 
   return (
-    <ProductContext.Provider value={{ products, loading, error }}>
+    <ProductsContext.Provider value={{ products, loading, error }}>
       {children}
-    </ProductContext.Provider>
+    </ProductsContext.Provider>
   );
 }
 ProductProvider.propTypes = {

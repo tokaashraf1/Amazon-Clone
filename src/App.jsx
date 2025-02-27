@@ -7,22 +7,29 @@ import { AuthProvider } from "./contexts/AuthContext";
 import { ProductProvider } from "./contexts/ProductsContext";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
+import { Toaster } from "react-hot-toast";
+import { WishlistProvider } from "./contexts/WishListContext";
+import WishList from "./pages/WishList";
 
 function App() {
   return (
     <AuthProvider>
       <ProductProvider>
-        <Router>
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<Home />} />
-            </Route>
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/products" element={<ProductsPage />} />
-            <Route path="/products/:id" element={<ProductDetails />} />
-          </Routes>
-        </Router>
+        <WishlistProvider>
+          <Router>
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                <Route index element={<Home />} />
+              </Route>
+              <Route path="/register" element={<Register />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/products" element={<ProductsPage />} />
+              <Route path="/wishlist" element={<WishList />} />
+              <Route path="/products/:id" element={<ProductDetails />} />
+            </Routes>
+            <Toaster />
+          </Router>
+        </WishlistProvider>
       </ProductProvider>
     </AuthProvider>
   );
