@@ -9,7 +9,8 @@ export function WishlistProvider({ children }) {
   // Load Wishlist from Local Storage when the app starts
   useEffect(() => {
     const storedWishlist = JSON.parse(localStorage.getItem("wishlist"));
-    if (storedWishlist.length > 0) {
+
+    if (storedWishlist !== null && storedWishlist.length > 0) {
       setWishlist(storedWishlist);
     }
   }, []);

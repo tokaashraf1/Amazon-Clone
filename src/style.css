@@ -21,6 +21,10 @@ body {
 .yellow-btn{
   background-color: #FFD814;
 }
+.red-btn{
+  background-color: rgba(255, 0, 0, 0.76);
+}
+.red-btn,
 .yellow-btn,
 .orange-btn{
   padding: 10px 30px;
@@ -28,6 +32,7 @@ body {
   cursor: pointer;
   transition: .3s ease;
 }
+.red-btn:hover,
 .yellow-btn:hover,
 .orange-btn:hover {
   filter: brightness(85%);
