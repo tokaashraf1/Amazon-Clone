@@ -5,6 +5,7 @@ import { validateRegistration } from "../utils/validation";
 import { Link, useNavigate } from "react-router-dom";
 import "../style.css";
 import { useContext, useState } from "react";
+import toast from "react-hot-toast";
 function Register() {
   const { authState, register } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ function Register() {
     password: "",
   });
   const [errors, setErrors] = useState({});
-  const [message, setMessage] = useState(null);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -37,7 +38,8 @@ function Register() {
 
     const result = register(formData.name, formData.email, formData.password);
     if (result.success) {
-      setMessage({ success: result.message });
+      toast.success("user registered successfully!");
+      navigate("/login");
       setFormData({ name: "", email: "", password: "" });
       navigate("/");
     } else {
@@ -51,12 +53,8 @@ function Register() {
       </div>
       <div className="form-container mt-10  sm:w-[60%] md:w-[45%] lg:w-[30%] border rounded-md py-8">
         <form className="w-[78%] mx-auto" onSubmit={handleSubmit}>
-          <h1 className="  text-xl lg:text-2xl font-semibold ">
-            Create Account
-          </h1>
-          {message?.success && (
-            <p className="text-green-500">{message.success}</p>
-          )}
+          <h1 className="text-xl font-semibold  lg:text-2xl">Create Account</h1>
+
           <div className="mt-3">
             <div>
               <label className="font-semibold">Your name</label>
@@ -68,7 +66,7 @@ function Register() {
                 onChange={handleChange}
               />
               {errors.name && (
-                <p className="text-red-500 text-sm">{errors.name}</p>
+                <p className="text-sm text-red-500">{errors.name}</p>
               )}
             </div>
             <div className="mt-3">
@@ -81,7 +79,7 @@ function Register() {
                 onChange={handleChange}
               />
               {errors.email && (
-                <p className="text-red-500 text-sm">{errors.email}</p>
+                <p className="text-sm text-red-500">{errors.email}</p>
               )}
             </div>
             <div className="mt-3">
@@ -94,7 +92,7 @@ function Register() {
                 onChange={handleChange}
               />
               {errors.password && (
-                <p className="text-red-500 text-sm">{errors.password}</p>
+                <p className="text-sm text-red-500">{errors.password}</p>
               )}
             </div>
             <button className="bg-[#FFD814] w-full rounded-md py-1  mt-4">
@@ -115,7 +113,7 @@ function Register() {
                 </Link>
               </span>
             </p>
-            <p className="mt-3 pb-1">
+            <p className="pb-1 mt-3">
               By creating an account or logging in , you agree to Amazon’s{" "}
               <span className="text-[#2A8FD7] underline">
                 {" "}
@@ -130,7 +128,7 @@ function Register() {
         </form>
       </div>
       <hr className="w-[95%] h-[2px] mt-10" />
-      <ul className="flex justify-center gap-11 mt-10">
+      <ul className="flex justify-center mt-10 gap-11">
         <li className="text-[#2A8FD7] ">
           <a href="">Conditions of Use</a>
         </li>
@@ -141,7 +139,7 @@ function Register() {
           <a href="">Help</a>
         </li>
       </ul>
-      <p className="mt-3 pb-10 mr-4">
+      <p className="pb-10 mt-3 mr-4">
         © 1996-2024, Amazon.com, Inc. or its affiliates
       </p>
     </div>

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { guarantee } from "../utils/constant";
 import Payment from "../components/Payment";
 import Testimonials from "../components/Testimonials";
@@ -10,6 +10,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 const ProductPage = () => {
+  const navigate = useNavigate();
   const id = useParams();
   const [product, setProduct] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -24,11 +25,18 @@ const ProductPage = () => {
   return (
     <section>
       <Header/>
+      <p
+        onClick={() => navigate("/products")}
+        className="mt-5 ml-5 cursor-pointer text-sky-500"
+      >
+        Back
+        <i className="ml-2 fa-solid fa-chevron-right"></i>
+      </p>
       <p className="ml-5 text-[#787878]">
         {product.category}
-        <i className="fa-solid fa-chevron-right ml-2"></i>
+        <i className="ml-2 fa-solid fa-chevron-right"></i>
       </p>
-      <div className="m-5 flex max-md:flex-col relative">
+      <div className="relative flex m-5 max-md:flex-col">
         <div className="flex gap-[15%] md:max-w-[30%] justify-between">
           <div className="max-w-[15%]">
             {[0, 1].map((index) => (
@@ -53,18 +61,18 @@ const ProductPage = () => {
             <p className="text-[#5C5C5C] text-xl">{product.description}</p>
           </div>
           <div>
-            <div className="flex justify-start items-center gap-1 my-3">
+            <div className="flex items-center justify-start gap-1 my-3">
               <p>{product.rating?.rate}</p>
               <StarsRate rating={product.rating?.rate} />
               <i className="fa-solid fa-chevron-down"></i>
-              <p className="blue ml-2">
+              <p className="ml-2 blue">
                 {product.rating?.count} ratings <span color="black">|</span>{" "}
                 Search this page
               </p>
             </div>
           </div>
           <hr className="border-[#787878]" />
-          <div className="my-3 flex flex-col gap-3">
+          <div className="flex flex-col gap-3 my-3">
             <h1 className="text-2xl">
               <sup>SAR</sup>
               {product.price}
@@ -81,7 +89,7 @@ const ProductPage = () => {
               {guarantee.map((g, key) => (
                 <div
                   key={key}
-                  className="flex content-center items-center flex-col text-center"
+                  className="flex flex-col items-center content-center text-center"
                 >
                   <img src={g.img} alt="" />
                   <p className="blue">{g.p}</p>
@@ -91,8 +99,8 @@ const ProductPage = () => {
           </div>
           <hr className="border-[#787878]" />
           <div>
-            <h1 className=" font-bold my-3">About this item :</h1>
-            <ul className="list-disc ml-5">
+            <h1 className="my-3 font-bold ">About this item :</h1>
+            <ul className="ml-5 list-disc">
               <li>
                 Feature: square neck, cutout, puff sleeve, ruffle hem, tie back
                 aline dress
