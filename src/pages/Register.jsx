@@ -41,21 +41,21 @@ function Register() {
       toast.success("user registered successfully!");
       navigate("/login");
       setFormData({ name: "", email: "", password: "" });
-      navigate("/");
+      // navigate("/");
     } else {
       setErrors({ email: result.message });
     }
   };
   return (
     <>
-      <Header/>
+      <Header />
       <div className="flex items-center flex-col mt-[8%]  sm:mt-[3%] ">
         <div>
           <img src={logo} alt="logo" className="max-w-full " />
         </div>
         <div className="form-container mt-10  sm:w-[60%] md:w-[45%] lg:w-[30%] border rounded-md py-8">
           <form className="w-[78%] mx-auto" onSubmit={handleSubmit}>
-            <h1 className="text-xl font-semibold  lg:text-2xl">
+            <h1 className="text-xl font-semibold lg:text-2xl">
               Create Account
             </h1>
 

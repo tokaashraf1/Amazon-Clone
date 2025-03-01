@@ -1,12 +1,17 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShoppingCart, faSearch, faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
+import {
+  faShoppingCart,
+  faSearch,
+  faBars,
+  faTimes,
+  faHeart,
+} from "@fortawesome/free-solid-svg-icons";
 import amazonlogo from "../assets/amazon2.png";
 import "./CSS/Header.css";
 
 const Header = () => {
-
   const [currentUser, setCurrentUser] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const navegate = useNavigate();
@@ -15,8 +20,12 @@ const Header = () => {
     localStorage.removeItem("currentUser");
     setCurrentUser(null);
     const cart = JSON.parse(localStorage.getItem("cart"));
+    const wishlist = JSON.parse(localStorage.getItem("wishlist"));
     if (cart) {
       localStorage.removeItem("cart");
+    }
+    if (wishlist) {
+      localStorage.removeItem("wishlist");
     }
     navegate("/login");
   };
@@ -30,50 +39,50 @@ const Header = () => {
   }, []);
 
   return (
-    <header className="flex items-center justify-between p-4 bg-gray-900 text-white shadow-md sticky top-0 left-0 w-full z-40">
+    <header className="sticky top-0 left-0 z-40 flex items-center justify-between w-full p-4 text-white bg-gray-900 shadow-md">
       {/* Logo */}
-      <Link to="/" className="text-2xl font-bold flex-shrink-0">
+      <Link to="/" className="flex-shrink-0 text-2xl font-bold">
         <img src={amazonlogo} alt="Amazon" className="h-10 mt-3" />
       </Link>
 
       {/* Mobile Menu Button */}
       <button
-        className="text-white bg-transparent md:hidden text-lg p-0 "
+        className="p-0 text-lg text-white bg-transparent md:hidden "
         onClick={() => setMenuOpen(!menuOpen)}
       >
         <FontAwesomeIcon icon={menuOpen ? faTimes : faBars} />
       </button>
 
       {/* Middle Section - Location & Search */}
-      <div className="hidden md:flex items-center gap-4 w-1/2">
+      <div className="items-center hidden w-1/2 gap-4 md:flex">
         {/* Location */}
-        <div className="hidden lg:flex items-center text-sm">
-          <i className="fa-solid fa-location-dot mr-1"></i>
+        <div className="items-center hidden text-sm lg:flex">
+          <i className="mr-1 fa-solid fa-location-dot"></i>
           <span>
             Delivering to Surat 394210 -{" "}
-            <span className=" cursor-pointer">Update location</span>
+            <span className="cursor-pointer ">Update location</span>
           </span>
         </div>
 
         {/* Search Bar */}
-        <div className="flex items-center bg-white text-black rounded-lg p-1 w-full mx-2">
+        <div className="flex items-center w-full p-1 mx-2 text-black bg-white rounded-lg">
           <input
             type="text"
             placeholder="Search products..."
-            className="p-2 w-full rounded-l-md focus:outline-none"
+            className="w-full p-2 rounded-l-md focus:outline-none"
           />
-          <button className="bg-yellow-500 px-4 py-2 rounded-r-md hover:bg-yellow-600">
+          <button className="px-4 py-2 bg-yellow-500 rounded-r-md hover:bg-yellow-600">
             <FontAwesomeIcon icon={faSearch} size="lg" />
           </button>
         </div>
       </div>
 
       {/* Right Section */}
-      <div className="hidden md:flex items-center space-x-4">
+      <div className="items-center hidden space-x-4 md:flex">
         {currentUser ? (
           <>
             <span className="text-sm">Welcome, {currentUser.name}!</span>
-            <Link to="/cart" className="flex items-center text-white px-4 py-2">
+            <Link to="/cart" className="flex items-center px-4 py-2 text-white">
               <FontAwesomeIcon
                 icon={faShoppingCart}
                 className="mr-1"
@@ -81,9 +90,16 @@ const Header = () => {
               />
               Cart
             </Link>
+            <Link
+              to="/wishlist"
+              className="flex items-center px-4 py-2 text-white"
+            >
+              <FontAwesomeIcon icon={faHeart} className="mr-1" size="lg" />
+              WishList
+            </Link>
             <button
               onClick={handleLogout}
-              className="bg-red-500 px-4 py-2 rounded-md hover:bg-red-600"
+              className="px-4 py-2 bg-red-500 rounded-md hover:bg-red-600"
             >
               Logout
             </button>
@@ -92,13 +108,13 @@ const Header = () => {
           <>
             <Link
               to="/login"
-              className="bg-transparent px-4 py-2 rounded-md hover:bg-blue-600"
+              className="px-4 py-2 bg-transparent rounded-md hover:bg-blue-600"
             >
               Login
             </Link>
             <Link
               to="/register"
-              className="bg-transparent px-4 py-2 rounded-md hover:bg-blue-600 text-white hover:text-white"
+              className="px-4 py-2 text-white bg-transparent rounded-md hover:bg-blue-600 hover:text-white"
             >
               Register
             </Link>
@@ -108,13 +124,13 @@ const Header = () => {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="absolute top-16 left-0 w-full bg-gray-900 p-4 flex flex-col items-center space-y-4 md:hidden">
+        <div className="absolute left-0 flex flex-col items-center w-full p-4 space-y-4 bg-gray-900 top-16 md:hidden">
           {currentUser ? (
             <>
               <span className="text-sm">Welcome, {currentUser.name}!</span>
               <Link
                 to="/cart"
-                className="flex items-center text-white px-4 py-2"
+                className="flex items-center px-4 py-2 text-white"
               >
                 <FontAwesomeIcon
                   icon={faShoppingCart}
@@ -125,7 +141,7 @@ const Header = () => {
               </Link>
               <button
                 onClick={handleLogout}
-                className="bg-red-500 px-4 py-2 rounded-md hover:bg-red-600 w-full"
+                className="w-full px-4 py-2 bg-red-500 rounded-md hover:bg-red-600"
               >
                 Logout
               </button>
@@ -134,13 +150,13 @@ const Header = () => {
             <>
               <button
                 // onClick={handleLogin}
-                className="bg-transparent px-4 py-2 rounded-md hover:bg-blue-600 w-full"
+                className="w-full px-4 py-2 bg-transparent rounded-md hover:bg-blue-600"
               >
                 Login
               </button>
               <Link
                 to="/register"
-                className="bg-transparent px-4 py-2 rounded-md hover:bg-blue-600 w-full text-white hover:text-white text-center"
+                className="w-full px-4 py-2 text-center text-white bg-transparent rounded-md hover:bg-blue-600 hover:text-white"
               >
                 Register
               </Link>

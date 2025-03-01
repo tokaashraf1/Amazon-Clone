@@ -1,4 +1,3 @@
-import { Button } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -43,7 +42,7 @@ function Filter({ products, setFilteredProducts }) {
     <div className="flex flex-row mt-10 ml-6 text-left gap-y-9 sm:flex-col">
       <p
         onClick={() => navigate("/")}
-        className="ml-5 cursor-pointer  text-sky-500"
+        className="ml-5 cursor-pointer text-sky-500"
       >
         Back
         <i className="ml-2 fa-solid fa-chevron-right"></i>
@@ -175,12 +174,6 @@ function Filter({ products, setFilteredProducts }) {
           </li>
         </ul>
       </div>
-      <button
-        className="p-3 text-white bg-red-700"
-        onClick={() => navigate("/wishlist")}
-      >
-        view wishlist page
-      </button>
     </div>
   );
 }

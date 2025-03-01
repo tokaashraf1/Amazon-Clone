@@ -21,11 +21,13 @@ function ProductCard({ product }) {
   }
 
   return (
-    <Card className="flex flex-col items-center max-w-xs p-2 m-auto rounded-lg shadow-lg cursor-pointer w-96 sm:w-64">
+    <Card
+      onClick={() => navigate(`/products/${product.id}`)}
+      className="flex flex-col items-center max-w-xs p-2 m-auto rounded-lg shadow-lg cursor-pointer w-96 sm:w-64"
+    >
       <img
         src={image}
         alt={title}
-        onClick={() => navigate(`/products/${product.id}`)}
         className="object-cover w-full h-56 rounded-lg"
       />
       <a href="#">

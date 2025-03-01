@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { WishlistContext } from "../contexts/WishListContext";
 import { useNavigate } from "react-router-dom";
 import AddToCart from "../components/AddToCart";
+import Header from "../components/Header";
 
 function WishList() {
   const { wishlist, removeFromWishlist } = useContext(WishlistContext);
@@ -10,10 +11,10 @@ function WishList() {
 
   return (
     <div>
-      <h1 className="mb-4 text-2xl font-bold text-center m-7 ">My Wishlist</h1>
+      <Header />
       {wishlist.length === 0 ? (
         <>
-          <p className="text-center">No items in wishlist.</p>
+          <p className="m-6 text-3xl text-center">Your wishlist is Empty</p>
           <button
             type="button"
             onClick={() => navigate("/products")}
@@ -25,6 +26,9 @@ function WishList() {
       ) : (
         <>
           <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <h1 className="mb-4 text-3xl font-bold text-center m-7 ">
+              My Wishlist
+            </h1>
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
               <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>

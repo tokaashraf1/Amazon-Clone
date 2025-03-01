@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
-  const [cart,setCart] = useState(null);
+  const navigate = useNavigate();
+  const [cart, setCart] = useState(null);
   let total = 0;
-  if(cart){
-  total = cart.reduce((acc, curr) => acc + (curr.price * curr.quantity), 0);
-}
+  if (cart) {
+    total = cart.reduce((acc, curr) => acc + curr.price * curr.quantity, 0);
+  }
 
   useEffect(() => {
     setCart(JSON.parse(localStorage.getItem("cart")));
@@ -19,7 +21,6 @@ const Cart = () => {
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   }
 
-
   return (
     <>
       <Header />
@@ -28,7 +29,7 @@ const Cart = () => {
           <div>
             {cart.map((item, key) => (
               <div key={key}>
-                <div className="flex justify-between items-center my-4 mx-7 max-sm:flex-col">
+                <div className="flex items-center justify-between my-4 mx-7 max-sm:flex-col">
                   <div className="flex gap-7">
                     <img src={item.image} alt="" className="w-24 h-24" />
                     <div className="max-w-[60%]">
@@ -36,7 +37,7 @@ const Cart = () => {
                       <p className="text-gray-500">{item.description}</p>
                     </div>
                   </div>
-                  <div className="flex gap-7 justify-center items-center max-sm:mt-3">
+                  <div className="flex items-center justify-center gap-7 max-sm:mt-3">
                     <h1 className="text-2xl ">
                       Price:{" "}
                       <span className="blue">
@@ -57,7 +58,7 @@ const Cart = () => {
                 <hr className="border-stone-400" />
               </div>
             ))}
-            <div className="flex m-5 justify-between items-center">
+            <div className="flex items-center justify-between m-5">
               <h1 className="text-2xl font-semibold text-[#111827]">
                 Total Price: <span className="blue">${total.toFixed(2)}</span>
               </h1>
@@ -65,7 +66,16 @@ const Cart = () => {
             </div>
           </div>
         ) : (
-          <h1 className="text-3xl text-center my-8">Your Cart is Empty.</h1>
+          <>
+            <h1 className="my-6 text-3xl text-center">Your Cart is Empty.</h1>
+            <button
+              type="button"
+              onClick={() => navigate("/products")}
+              className="w-40 ml-[680px] mt-[10px] text-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+            >
+              Back
+            </button>
+          </>
         )}
       </div>
       <Footer />
