@@ -10,10 +10,14 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import amazonlogo from "../assets/amazon2.png";
 import "./CSS/Header.css";
+import SearchBar from "./SearchBar";
+import { useSearch } from "../contexts/SearchContext";
 
 const Header = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const { setSearchQuery } = useSearch();
+
   const navegate = useNavigate();
 
   const handleLogout = () => {
@@ -63,9 +67,13 @@ const Header = () => {
             <span className="cursor-pointer ">Update location</span>
           </span>
         </div>
+      </div>
 
-        {/* Search Bar */}
-        <div className="flex items-center w-full p-1 mx-2 text-black bg-white rounded-lg">
+      {/* Search Bar */}
+      <div className="hidden mr-6 md:flex w-80">
+        <SearchBar setSearchQuery={setSearchQuery} />
+      </div>
+      {/* <div className="flex items-center w-full p-1 mx-2 text-black bg-white rounded-lg">
           <input
             type="text"
             placeholder="Search products..."
@@ -75,7 +83,7 @@ const Header = () => {
             <FontAwesomeIcon icon={faSearch} size="lg" />
           </button>
         </div>
-      </div>
+      </div> */}
 
       {/* Right Section */}
       <div className="items-center hidden space-x-4 md:flex">
