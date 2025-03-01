@@ -9,17 +9,24 @@ const Header = () => {
   const [user, setUser] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const navegate = useNavigate();
+
   const handleLogout = () => {
     localStorage.removeItem('users');
+    localStorage.removeItem("currentUser");
     setUser(null);
     navegate('/login');
   };
 
   useEffect(()=>{
   localStorage.getItem('users');
-  setUser(JSON.parse(localStorage.getItem('users')));
-
-},[])
+  const regitseredUser = JSON.parse(localStorage.getItem('users'));
+  const logedInUser = JSON.parse(localStorage.getItem("currentUser"));
+  if(regitseredUser){
+    setUser(regitseredUser[0]);
+  }else{
+    setUser(logedInUser);
+  }
+},[]);
 
   return (
     <header className="flex items-center justify-between p-4 bg-gray-900 text-white shadow-md sticky top-0 left-0 w-full z-40">
@@ -64,7 +71,7 @@ const Header = () => {
       <div className="hidden md:flex items-center space-x-4">
         {user ? (
           <>
-            <span className="text-sm">Welcome, {user[0].name}!</span>
+            <span className="text-sm">Welcome, {user.name}!</span>
             <Link to="/cart" className="flex items-center text-white px-4 py-2">
               <FontAwesomeIcon
                 icon={faShoppingCart}
@@ -125,7 +132,7 @@ const Header = () => {
           ) : (
             <>
               <button
-                onClick={handleLogin}
+                // onClick={handleLogin}
                 className="bg-transparent px-4 py-2 rounded-md hover:bg-blue-600 w-full"
               >
                 Login

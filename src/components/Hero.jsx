@@ -2,10 +2,14 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Hero({ products }) {
+  const navegate = useNavigate();
   console.log(products);
-
+  function handelClick(id){
+    navegate(`/products/${id}`);
+  }
   // Slider settings
   const settings = {
     dots: false,
@@ -26,12 +30,16 @@ export default function Hero({ products }) {
       <div className="w-full mx-auto px-4">
         <Slider {...settings}>
           {products.map((product) => (
-            <div key={product.id} className="relative w-full flex flex-col items-center">
+            <div
+              key={product.id}
+              className="relative w-full flex flex-col items-center"
+            >
               {/* Product Image */}
               <img
                 src={product.image}
                 alt={product.title}
-                className="w-full h-[200px] sm:h-[300px] md:h-[400px] lg:h-[500px] object-contain bg-white p-4"
+                onClick={() => handelClick(product.id)}
+                className="w-full h-[200px] sm:h-[300px] md:h-[400px] lg:h-[500px] object-contain bg-white p-4 cursor-pointer"
               />
             </div>
           ))}

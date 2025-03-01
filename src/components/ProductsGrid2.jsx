@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function ProductsGrid2({ products }) {
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const navigate = useNavigate();
 
   // Ensure first product appears by default
   useEffect(() => {
@@ -13,7 +15,6 @@ export default function ProductsGrid2({ products }) {
   return (
     <div className="w-full max-w-screen-2xl mx-auto p-4 ">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        
         {/* Box 1 - Best Sellers in Toys */}
         <div className="bg-white text-black p-4 shadow-lg max-w-[320px] min-h-[500px] flex flex-col justify-between">
           <h3 className="text-lg font-bold h-[64px] leading-6">
@@ -27,14 +28,17 @@ export default function ProductsGrid2({ products }) {
                 key={selectedProduct.id}
                 src={selectedProduct.image}
                 alt={selectedProduct.title}
-                className="w-full h-40 object-contain bg-white p-2 rounded mb-2"
+                className="w-full h-40 object-contain bg-white p-2 rounded mb-2 cursor-pointer"
+                onClick={() => navigate(`/products/${selectedProduct.id}`)}
               />
               <p className="text-sm text-gray-700 h-[48px]">
                 {selectedProduct.description.length > 120
                   ? `${selectedProduct.description.slice(0, 120)}...`
                   : selectedProduct.description}
               </p>
-              <p className="text-lg font-semibold mt-5">${selectedProduct.price}</p>
+              <p className="text-lg font-semibold mt-5">
+                ${selectedProduct.price}
+              </p>
             </>
           )}
 
@@ -46,7 +50,11 @@ export default function ProductsGrid2({ products }) {
                 src={product.image}
                 alt={product.title}
                 className={`w-full h-16 object-contain bg-white p-1 rounded cursor-pointer transition-all duration-200
-                  ${selectedProduct?.image === product.image ? "border-2 border-blue-500 scale-105" : "opacity-70"}
+                  ${
+                    selectedProduct?.image === product.image
+                      ? "border-2 border-blue-500 scale-105"
+                      : "opacity-70"
+                  }
                 `}
                 onClick={() => setSelectedProduct(product)}
               />
@@ -71,7 +79,10 @@ export default function ProductsGrid2({ products }) {
                 </div>
               ))}
             </div>
-            <a href="#" className="block text-blue-400 cursor-pointer hover:underline text-sm">
+            <a
+              onClick={() => navigate("/products")}
+              className="block text-blue-400 cursor-pointer hover:underline text-sm"
+            >
               Explore More
             </a>
           </div>
@@ -90,6 +101,12 @@ export default function ProductsGrid2({ products }) {
               />
             ))}
           </div>
+          <a
+            onClick={() => navigate("/products")}
+            className="block text-blue-400 cursor-pointer hover:underline text-sm"
+          >
+            Explore More
+          </a>
         </div>
 
         {/* Box 4 - Latest Styles */}
@@ -109,7 +126,10 @@ export default function ProductsGrid2({ products }) {
               </div>
             ))}
           </div>
-          <a href="#" className="block text-blue-400 cursor-pointer hover:underline text-sm">
+          <a
+            onClick={() => navigate("/products")}
+            className="block text-blue-400 cursor-pointer hover:underline text-sm"
+          >
             See More
           </a>
         </div>

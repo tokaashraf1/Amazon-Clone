@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { WishlistContext } from "../contexts/WishListContext";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import AddToCart from "./AddToCart";
 
 function ProductCard({ product }) {
   const { id, title, price, image } = product || [];
@@ -18,14 +19,13 @@ function ProductCard({ product }) {
       toast.success(`product is added to wishlist`);
     }
   }
+
   return (
-    <Card
-      onClick={() => navigate(`/products/${product.id}`)}
-      className="flex flex-col items-center max-w-xs p-2 m-auto rounded-lg shadow-lg cursor-pointer w-96 sm:w-64"
-    >
+    <Card className="flex flex-col items-center max-w-xs p-2 m-auto rounded-lg shadow-lg cursor-pointer w-96 sm:w-64">
       <img
         src={image}
         alt={title}
+        onClick={() => navigate(`/products/${product.id}`)}
         className="object-cover w-full h-56 rounded-lg"
       />
       <a href="#">
@@ -83,9 +83,7 @@ function ProductCard({ product }) {
           ${price}
         </span>
 
-        <button className="mt-3 w-full rounded-lg bg-[#ffcc00] px-4 py-2 text-sm font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-2 focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 ">
-          Add to cart
-        </button>
+        <AddToCart data={product} quantity={1} use={"products"} />
         <button
           onClick={(e) => {
             e.stopPropagation();

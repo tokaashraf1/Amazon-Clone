@@ -11,6 +11,8 @@ import Cart from "./pages/Cart";
 import { Toaster } from "react-hot-toast";
 import { WishlistProvider } from "./contexts/WishListContext";
 import WishList from "./pages/WishList";
+import RequiredAuth from "./auth/RequiredAuth";
+import Error404 from "./pages/Error404";
 
 function App() {
   return (
@@ -19,11 +21,14 @@ function App() {
         <WishlistProvider>
           <Router>
             <Routes>
+              <Route path="/*" element={<Error404 />} />
               <Route path="/" element={<Layout />}>
                 <Route index element={<Home />} />
               </Route>
-              <Route path="/register" element={<Register />} />
-              <Route path="/login" element={<Login />} />
+              <Route element={<RequiredAuth />}>
+                <Route path="/register" element={<Register />} />
+                <Route path="/login" element={<Login />} />
+              </Route>
               <Route path="/products" element={<ProductsPage />} />
               <Route path="/wishlist" element={<WishList />} />
               <Route path="/products/:id" element={<ProductDetails />} />

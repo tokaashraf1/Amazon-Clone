@@ -1,23 +1,8 @@
 import { useState } from "react";
-import { succes } from "../assets/icons";
+import AddToCart from "./AddToCart";
 
 const Payment = ({ data }) => {
   const [quantity, setQuantity] = useState(1);
-  const [showMessage, setShowMessage] = useState(false);
-
-  function handelCart() {
-    let cart = localStorage.getItem("cart");
-    if (cart) {
-      cart = JSON.parse(cart);
-      cart.push({ ...data, quantity });
-    } else {
-      cart = [{ ...data, quantity }];
-    }
-    localStorage.setItem("cart", JSON.stringify(cart));
-
-    setShowMessage(true);
-    setTimeout(() => setShowMessage(false), 3000);
-  }
 
   return (
     <div className="border-[1px] border-stone-400 rounded p-5 h-[fit-content]  flex flex-col gap-3">
@@ -49,17 +34,7 @@ const Payment = ({ data }) => {
           </span>
         </p>
       </div>
-      <button className="yellow-btn" onClick={() => handelCart()}>
-        Add to Cart
-      </button>
-      {showMessage && (
-        <div className="md:w-[25%] absolute bottom-[-5%] right-[10px] z-[50] border-2 border-green-500 flex bg-white p-2 items-center">
-          <img src={succes} width={"10%"} alt="" />
-          <p className="text-green-600 ml-3">
-            Product added to cart successfully
-          </p>
-        </div>
-      )}
+      <AddToCart data={data} quantity={quantity}/>
       <button className="orange-btn">Buy Now</button>
       <div className="gray">
         <p>Ships from : Monatik LLC</p>

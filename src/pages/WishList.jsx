@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { WishlistContext } from "../contexts/WishListContext";
 import { useNavigate } from "react-router-dom";
+import AddToCart from "../components/AddToCart";
 
 function WishList() {
   const { wishlist, removeFromWishlist } = useContext(WishlistContext);
@@ -60,9 +61,7 @@ function WishList() {
                       </button>
                     </td>
                     <td className="px-6 py-4">
-                      <button className="font-medium text-green-600 dark:text-green-500 hover:underline">
-                        Add to Cart
-                      </button>
+                      <AddToCart data={product} quantity={1} use={"products"} />
                     </td>
                   </tr>
                 ))}
