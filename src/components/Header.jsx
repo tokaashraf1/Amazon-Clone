@@ -6,27 +6,28 @@ import amazonlogo from "../assets/amazon2.png";
 import "./CSS/Header.css";
 
 const Header = () => {
-  const [user, setUser] = useState(null);
+
+  const [currentUser, setCurrentUser] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const navegate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem('users');
     localStorage.removeItem("currentUser");
-    setUser(null);
-    navegate('/login');
+    setCurrentUser(null);
+    const cart = JSON.parse(localStorage.getItem("cart"));
+    if (cart) {
+      localStorage.removeItem("cart");
+    }
+    navegate("/login");
   };
 
-  useEffect(()=>{
-  localStorage.getItem('users');
-  const regitseredUser = JSON.parse(localStorage.getItem('users'));
-  const logedInUser = JSON.parse(localStorage.getItem("currentUser"));
-  if(regitseredUser){
-    setUser(regitseredUser[0]);
-  }else{
-    setUser(logedInUser);
-  }
-},[]);
+  useEffect(() => {
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+    if (currentUser) {
+      setCurrentUser(currentUser);
+    }
+  }, []);
 
   return (
     <header className="flex items-center justify-between p-4 bg-gray-900 text-white shadow-md sticky top-0 left-0 w-full z-40">
@@ -69,9 +70,9 @@ const Header = () => {
 
       {/* Right Section */}
       <div className="hidden md:flex items-center space-x-4">
-        {user ? (
+        {currentUser ? (
           <>
-            <span className="text-sm">Welcome, {user.name}!</span>
+            <span className="text-sm">Welcome, {currentUser.name}!</span>
             <Link to="/cart" className="flex items-center text-white px-4 py-2">
               <FontAwesomeIcon
                 icon={faShoppingCart}
@@ -108,9 +109,9 @@ const Header = () => {
       {/* Mobile Menu */}
       {menuOpen && (
         <div className="absolute top-16 left-0 w-full bg-gray-900 p-4 flex flex-col items-center space-y-4 md:hidden">
-          {user ? (
+          {currentUser ? (
             <>
-              <span className="text-sm">Welcome, {user.name}!</span>
+              <span className="text-sm">Welcome, {currentUser.name}!</span>
               <Link
                 to="/cart"
                 className="flex items-center text-white px-4 py-2"

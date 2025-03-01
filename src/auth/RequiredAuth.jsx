@@ -5,7 +5,7 @@ const RequiredAuth = () => {
   const navegate = useNavigate();
   const [user, setUser] = useState();
   useEffect(() => {
-    setUser(JSON.parse(localStorage.getItem("users")));
+    setUser(JSON.parse(localStorage.getItem("currentUser")));
   }, []);
   return user ? navegate("/") : <Outlet />;
 };

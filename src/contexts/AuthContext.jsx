@@ -18,6 +18,11 @@ export const AuthProvider = ({ children }) => {
     const newUser = { name, email, password };
     const updatedUsers = [...authState.users, newUser];
     localStorage.setItem("users", JSON.stringify(updatedUsers));
+    localStorage.setItem("currentUser", JSON.stringify(newUser));
+    const cart = JSON.parse(localStorage.getItem("cart"));
+    if (cart) {
+      localStorage.removeItem("cart");
+    }
     setAuthState({ ...authState, users: updatedUsers });
     return { success: true, message: "Registration successful!" };
   };
@@ -31,6 +36,10 @@ export const AuthProvider = ({ children }) => {
       return { success: false, message: "Incorrect password." };
     }
     localStorage.setItem("currentUser", JSON.stringify(user));
+    const cart = JSON.parse(localStorage.getItem("cart"));
+    if (cart) {
+      localStorage.removeItem("cart");
+    }
     setAuthState({ ...authState, currentUser: user });
     return { success: true, message: "Login successful!" };
   };

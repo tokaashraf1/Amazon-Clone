@@ -3,8 +3,11 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 
 const Cart = () => {
-  const [cart,setCart] = useState([]);
-  const total = cart.reduce((acc, curr) => acc + (curr.price * curr.quantity), 0);
+  const [cart,setCart] = useState(null);
+  let total = 0;
+  if(cart){
+  total = cart.reduce((acc, curr) => acc + (curr.price * curr.quantity), 0);
+}
 
   useEffect(() => {
     setCart(JSON.parse(localStorage.getItem("cart")));
