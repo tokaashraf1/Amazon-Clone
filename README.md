@@ -22,7 +22,7 @@
 # Hosting
 You can access the live version of the project From the following URL:
 
-[Amazon--clone]()
+[Amazon--clone](https://amazonclone-roan-delta.vercel.app/)
 
 # User Interfaces
 #### Login and Register
