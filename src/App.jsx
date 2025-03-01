@@ -8,6 +8,7 @@ import { Toaster } from "react-hot-toast";
 import RequiredAuth from "./auth/RequiredAuth";
 import Error404 from "./pages/Error404";
 import { SearchProvider } from "./contexts/SearchContext";
+import LoadingPage from "./components/LoadingPage";
 
 // Lazy Loading Pages
 const Home = lazy(() => import("./pages/Home"));
@@ -27,7 +28,9 @@ function App() {
             <Router>
               <Suspense
                 fallback={
-                  <div className="p-10 text-2xl text-center">Loading...</div>
+                  <div className="p-10 text-2xl text-center">
+                    <LoadingPage />
+                  </div>
                 }
               >
                 <Routes>

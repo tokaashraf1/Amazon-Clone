@@ -16,19 +16,21 @@ const AddToCart = ({ data, quantity, use }) => {
 
   return (
     <div className="w-[100%]">
-      <button
-        className={`${
-          use === "products"
-            ? "mt-3 w-full rounded-lg bg-[#ffcc00] px-4 py-2 text-sm font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-2 focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 "
-            : "yellow-btn"
-        } w-[100%]`}
-        onClick={(e) => {
-          e.stopPropagation();
-          handelCart();
-        }}
-      >
-        Add to Cart
-      </button>
+      {
+        <button
+          className={`${
+            use === "products"
+              ? "mt-3 w-full rounded-lg bg-[#ffcc00] px-4 py-2 text-sm font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-2 focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 "
+              : "yellow-btn"
+          } w-[100%]`}
+          onClick={(e) => {
+            e.stopPropagation();
+            handelCart();
+          }}
+        >
+          Add to Cart
+        </button>
+      }
     </div>
   );
 };

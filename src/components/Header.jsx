@@ -21,7 +21,7 @@ const Header = ({ use }) => {
   const { setSearchQuery } = useSearch();
   const [search, setSearch] = useState("");
   const [searchProduct, setSearchProduct] = useState(null);
-  const {products} = useContext(ProductsContext);
+  const { products } = useContext(ProductsContext);
 
   const handleLogout = () => {
     localStorage.removeItem("currentUser");
@@ -46,7 +46,7 @@ const Header = ({ use }) => {
     } else {
       setSearchProduct(null);
     }
-  }, [search]);
+  }, [search, products]);
 
   useEffect(() => {
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -89,7 +89,7 @@ const Header = ({ use }) => {
           <SearchBar setSearchQuery={setSearchQuery} />
         </div>
       ) : (
-        <div className="flex items-center w-full p-1 mx-2 text-black bg-white rounded-lg relative">
+        <div className="relative flex items-center w-full p-1 mx-2 text-black bg-white rounded-lg">
           <input
             type="text"
             placeholder="Search products..."
@@ -191,6 +191,13 @@ const Header = ({ use }) => {
                   size="lg"
                 />
                 Cart
+              </Link>
+              <Link
+                to="/wishlist"
+                className="flex items-center px-4 py-2 text-white"
+              >
+                <FontAwesomeIcon icon={faHeart} className="mr-1" size="lg" />
+                WishList
               </Link>
               <button
                 onClick={handleLogout}
