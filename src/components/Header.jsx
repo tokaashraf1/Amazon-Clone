@@ -151,6 +151,14 @@ const Header = ({ use }) => {
           </>
         ) : (
           <>
+            <Link to="/cart" className="flex items-center px-4 py-2 text-white">
+              <FontAwesomeIcon
+                icon={faShoppingCart}
+                className="mr-1"
+                size="lg"
+              />
+              Cart
+            </Link>
             <Link
               to="/login"
               className="px-4 py-2 bg-transparent rounded-md hover:bg-blue-600"
@@ -193,10 +201,18 @@ const Header = ({ use }) => {
             </>
           ) : (
             <>
-              <button
-                // onClick={handleLogin}
-                className="w-full px-4 py-2 bg-transparent rounded-md hover:bg-blue-600"
+              <Link
+                to="/cart"
+                className="flex items-center px-4 py-2 text-white"
               >
+                <FontAwesomeIcon
+                  icon={faShoppingCart}
+                  className="mr-1"
+                  size="lg"
+                />
+                Cart
+              </Link>
+              <button className="w-full px-4 py-2 bg-transparent rounded-md hover:bg-blue-600">
                 Login
               </button>
               <Link
