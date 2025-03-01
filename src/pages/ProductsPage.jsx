@@ -6,6 +6,7 @@ import Filter from "../components/Filter";
 import ProductList from "../components/ProductList";
 import { ProductsContext } from "../contexts/ProductsContext";
 import { useSearch } from "../contexts/SearchContext";
+import LoadingPage from "../components/LoadingPage";
 
 function ProductsPage() {
   const { products, loading, error } = useContext(ProductsContext);
@@ -19,12 +20,12 @@ function ProductsPage() {
     setFilteredProducts(filtered);
   }, [searchQuery, products]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <LoadingPage/>;
   if (error) return <div>There is an error in getting products</div>;
 
   return (
     <>
-      <Header />
+      <Header use={"products"} />
       <div className="grid sm:grid-cols-[20%_80%] ">
         <Filter products={products} setFilteredProducts={setFilteredProducts} />
         <ProductList products={filteredProducts} />

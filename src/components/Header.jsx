@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -12,13 +12,16 @@ import amazonlogo from "../assets/amazon2.png";
 import "./CSS/Header.css";
 import SearchBar from "./SearchBar";
 import { useSearch } from "../contexts/SearchContext";
+import { ProductsContext } from "../contexts/ProductsContext";
 
-const Header = () => {
+const Header = ({ use }) => {
   const [currentUser, setCurrentUser] = useState(null);
+  const navegate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
   const { setSearchQuery } = useSearch();
-
-  const navegate = useNavigate();
+  const [search, setSearch] = useState("");
+  const [searchProduct, setSearchProduct] = useState(null);
+  const {products} = useContext(ProductsContext);
 
   const handleLogout = () => {
     localStorage.removeItem("currentUser");
@@ -35,6 +38,17 @@ const Header = () => {
   };
 
   useEffect(() => {
+    if (search.length > 0) {
+      const filteredProducts = products.filter((product) =>
+        product.title.toLowerCase().includes(search.toLowerCase())
+      );
+      setSearchProduct(filteredProducts);
+    } else {
+      setSearchProduct(null);
+    }
+  }, [search]);
+
+  useEffect(() => {
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
     if (currentUser) {
@@ -46,7 +60,7 @@ const Header = () => {
     <header className="sticky top-0 left-0 z-40 flex items-center justify-between w-full p-4 text-white bg-gray-900 shadow-md">
       {/* Logo */}
       <Link to="/" className="flex-shrink-0 text-2xl font-bold">
-        <img src={amazonlogo} alt="Amazon" className="h-10 mt-3" />
+        <img src={amazonlogo} alt="Amazon" className="h-10 mt-3 mr-3" />
       </Link>
 
       {/* Mobile Menu Button */}
@@ -70,20 +84,43 @@ const Header = () => {
       </div>
 
       {/* Search Bar */}
-      <div className="hidden mr-6 md:flex w-80">
-        <SearchBar setSearchQuery={setSearchQuery} />
-      </div>
-      {/* <div className="flex items-center w-full p-1 mx-2 text-black bg-white rounded-lg">
+      {use ? (
+        <div className="hidden mr-6 md:flex w-[100%]">
+          <SearchBar setSearchQuery={setSearchQuery} />
+        </div>
+      ) : (
+        <div className="flex items-center w-full p-1 mx-2 text-black bg-white rounded-lg relative">
           <input
             type="text"
             placeholder="Search products..."
             className="w-full p-2 rounded-l-md focus:outline-none"
+            onChange={(e) => setSearch(e.target.value)}
           />
           <button className="px-4 py-2 bg-yellow-500 rounded-r-md hover:bg-yellow-600">
             <FontAwesomeIcon icon={faSearch} size="lg" />
           </button>
+          {searchProduct && (
+            <div className="absolute z-10 w-full bg-white top-[55px] p-3 rounded-xl">
+              {searchProduct.map((product) => (
+                <div
+                  key={product.id}
+                  className="flex items-center justify-between p-2 border-b"
+                >
+                  <Link to={`/products/${product.id}`}>{product.title}</Link>
+                  <button
+                    onClick={() => {
+                      setSearchProduct(null);
+                      setSearch("");
+                    }}
+                  >
+                    <FontAwesomeIcon icon={faTimes} />
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
-      </div> */}
+      )}
 
       {/* Right Section */}
       <div className="items-center hidden space-x-4 md:flex">
